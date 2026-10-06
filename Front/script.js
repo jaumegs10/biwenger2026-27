@@ -824,7 +824,7 @@ async function actualizarMensajeWhatsApp() {
 
         if (error) throw new Error("Error obteniendo las deudas.");
 
-        let mensaje = `🚨 *DEUDAS ACTUALIZADAS* 🚨\nPara ver consultar la clasificación y otros detalles entrar en:\n👉 https://ligabiwenger2627.netlify.app/\n\n`;
+        let mensaje = `🚨 *DEUDAS ACTUALIZADAS* 🚨\nPara consultar la clasificación y otros detalles entrar en:\n👉 https://ligabiwenger2627.netlify.app/\n\n`;
 
         // Si la BBDD nos dice que no hay nada pendiente...
         if (!deudasPendientes || deudasPendientes.length === 0) {
@@ -1223,6 +1223,7 @@ if (btnTabInicio && btnTabClasificacion) {
 // ==========================================
 async function actualizarPerdedorJornada() {
     const textoPerdedor = document.getElementById('texto-perdedor-jornada');
+    const imgPerdedor = document.getElementById('foto-perdedor-jornada');
     if (!textoPerdedor) return;
 
     try {
@@ -1264,8 +1265,11 @@ async function actualizarPerdedorJornada() {
         if (!idPerdedor) return;
 
         // 4. Conseguir el nombre del perdedor
-        const { data: jugadorData } = await db.from('jugadores').select('nombre').eq('id', idPerdedor).single();
+        const { data: jugadorData } = await db.from('jugadores').select('nombre, foto').eq('id', idPerdedor).single();
         const nombrePerdedor = jugadorData ? jugadorData.nombre : "Desconocido";
+        if (imgPerdedor && jugadorData) {
+            imgPerdedor.src = jugadorData.foto || "foto_alejo.jpg"; // Si no tiene foto en la BBDD, deja la de Alejo por defecto
+        }
 
         // 5. Conseguir un mensaje humillante aleatorio (los ultra-ofensivos del farolillo)
         const { data: mensajes } = await db.from('mensajes_ultimo').select('mensaje').eq('id_jugador', idPerdedor);

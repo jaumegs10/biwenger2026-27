@@ -228,6 +228,14 @@ section {
 }
 
 
+/* --- Tarjeta: Pringado de la jornada --- */
+.foto-pringado {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+}
+
+
 /* --- Tarjeta: Farolillo Rojo --- */
 .tarjeta-farolillo {
     background: #1a1a1a;
@@ -277,7 +285,7 @@ section {
 .foto-farolillo {
     width: 150px;
     /* Ancho fijo */
-    height: 150px;
+    height: auto;
     /* Alto fijo */
     object-fit: cover;
     /* Evita que la foto se achate o deforme */
